@@ -1,0 +1,37 @@
+USE [book]
+GO
+
+
+
+CREATE TABLE [dbo].[Auteur](
+    [IdAuteur] [int] IDENTITY(1,1) NOT NULL,
+    [Nom] [nvarchar](50) NOT NULL,
+    [Prenom] [nvarchar](50) NOT NULL,
+    [DateNaissance] [datetime] NULL,
+ CONSTRAINT [PK_Auteur] PRIMARY KEY CLUSTERED 
+(
+    [IdAuteur] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[Livre](
+    [IdLivre] [int] IDENTITY(1,1) NOT NULL,
+    [Titre] [nvarchar](50) NOT NULL,
+    [Prix] [float] NOT NULL,
+    [IdAuteur] [int] NOT NULL,
+    [Genre] [nvarchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+    [IdLivre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Livre]  WITH CHECK ADD  CONSTRAINT [Livre_Auteur_FK] FOREIGN KEY([IdAuteur])
+REFERENCES [dbo].[Auteur] ([IdAuteur])
+GO
+
+ALTER TABLE [dbo].[Livre] CHECK CONSTRAINT [Livre_Auteur_FK]
+GO
